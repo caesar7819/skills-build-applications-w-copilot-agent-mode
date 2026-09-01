@@ -7,23 +7,23 @@ import Workout from '../models/Workout';
 
 const router = Router();
 
-router.get('/users/', async (_request, response) => {
+router.get('/users', async (_request, response) => {
   response.json(await User.find().sort({ name: 1 }));
 });
 
-router.get('/teams/', async (_request, response) => {
+router.get('/teams', async (_request, response) => {
   response.json(await Team.find().populate('members', 'name email profile'));
 });
 
-router.get('/activities/', async (_request, response) => {
+router.get('/activities', async (_request, response) => {
   response.json(await Activity.find().populate('user', 'name email').sort({ completedAt: -1 }));
 });
 
-router.get('/leaderboard/', async (_request, response) => {
+router.get('/leaderboard', async (_request, response) => {
   response.json(await Leaderboard.find().populate('user', 'name').populate('team', 'name').sort({ rank: 1 }));
 });
 
-router.get('/workouts/', async (_request, response) => {
+router.get('/workouts', async (_request, response) => {
   response.json(await Workout.find().sort({ title: 1 }));
 });
 
