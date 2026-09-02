@@ -13,7 +13,10 @@ export function collectionFromResponse(payload) {
 }
 
 export async function fetchCollection(resource, signal) {
-  const response = await fetch(`${apiBaseUrl}/${resource}/`, { signal })
+  const endpoint = resource.startsWith('http') || resource.startsWith('/')
+    ? resource
+    : `${apiBaseUrl}/${resource}/`
+  const response = await fetch(endpoint, { signal })
   if (!response.ok) throw new Error(`Unable to load ${resource}`)
   return collectionFromResponse(await response.json())
 }
